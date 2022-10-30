@@ -1,0 +1,63 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">#{cadastroUsuarioSiteBean.editando  ? 'Edição de Usuário' : 'Novo Usuário'}</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="usuario"
+				value="#{cadastroUsuarioSiteBean.usuario}" />
+			<f:event listener="#{cadastroUsuarioSiteBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+			<h1>#{cadastroUsuarioSiteBean.editando ? 'Edição de Usuário' :
+				'Novo Usuário'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" rendered="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/usuarioSite/CadastroUsuarioSite" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroUsuarioSiteBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/usuarioSite/PesquisaUsuarioSite" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px;" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Usuário: " for="nome" />
+				<p:inputText id="nome" size="30" maxlength="22"
+					value="#{cadastroUsuarioSiteBean.usuario.nome}" />
+					
+					<p:outputLabel value="E-mail " for="email" />
+				<p:inputText id="email" size="30" maxlength="22"
+					value="#{cadastroUsuarioSiteBean.usuario.email}" />
+
+				<p:outputLabel value="Senha: " for="senha" />
+				<p:password id="senha" size="30" maxlength="15"
+					value="#{cadastroUsuarioSiteBean.usuario.senha}" />
+
+				<p:outputLabel value="Cliente:" for="cli" />
+				<p:selectOneMenu id="cli" style="width:390px"
+					value="#{cadastroUsuarioSiteBean.usuario.cliente}">
+					<f:selectItem itemLabel="Selecione o Cliente" />
+					<f:selectItems value="#{cadastroUsuarioSiteBean.clientes}"
+						var="cli" itemValue="#{cliente.id}" itemLabel="#{cliente}" />
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

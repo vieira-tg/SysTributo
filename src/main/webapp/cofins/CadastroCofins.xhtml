@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">#{cadastroCofinsBean.editando  ? 'Edição de Cofins' : 'Novo Cofins'}</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="cofins" value="#{cadastroCofinsBean.cofins}" />
+			<f:event listener="#{cadastroCofinsBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+			<h1>#{cadastroCofinsBean.editando ? 'Edição de Cofins' : 'Novo
+				Cofins'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" rendered="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cofins/CadastroCofins" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroCofinsBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/cofins/PesquisaCofins" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px;" columnClasses="rotulo, campo">
+				<p:outputLabel value="Código:" for="codigo" />
+				<p:inputText id="codigo" size="30" maxlength="10"
+					value="#{cadastroCofinsBean.cofins.id}" disabled="true" />
+
+				<p:outputLabel value="Cst:" for="cst" />
+				<p:inputText id="cst" size="30" maxlength="22"
+					value="#{cadastroCofinsBean.cofins.cst}" required="true"
+					requiredMessage="Digite o CST!" />
+
+				<p:outputLabel value="Descrição" for="descricao" />
+				<p:inputText id="descricao" size="30" maxlength="50"
+					value="#{cadastroCofinsBean.cofins.descricao}" required="true"
+					requiredMessage="Digite a Descrição!" />
+
+
+			</p:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,98 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Produtos</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<h1>Pesquisa Produtos</h1>
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px; height: 29px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" id="botaoPesquisar"
+						action="#{cadastroProdutoBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/produtos/CadastroProdutos" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="1" id="painel"
+				style="width: 100%; margin-top: 20px;" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Pesquisar:  " for="pesquisa" />
+				<p:inputText id="pesquisa" size="50"
+					value="#{cadastroProdutoBean.filtro}" />
+
+
+			</p:panelGrid>
+
+			<p:dataTable id="produtoTable"
+				value="#{cadastroProdutoBean.filtrados}" var="produto"
+				style="margin-top: 20px"
+				emptyMessage="Não foram encontrados Produtos" rows="20"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="botton">
+				<p:column style="text-align:center; widht: 100px;">
+
+					<p:commandButton
+						action="/ncms/DetalheNcm.xhtml?faces-redirect=true" icon="fa-usd"
+						title="Editar" ajax="false" update="@from">
+
+						<f:setPropertyActionListener value="#{produto}"
+							target="#{detalheNcmBean.produtoSelecionado}" />
+
+
+					</p:commandButton>
+
+
+
+
+					<p:button outcome="/produtos/CadastroProdutos"
+						icon="ui-icon-pencil" title="Editar">
+						<f:param name="produto" value="#{produto.id}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{cadastroProdutoBean.excluir}"
+						update=":frmPesquisa">
+						<p:confirm header="Confirmação"
+							message="Deseja excluir o Produto?" icon="ui-icon-alert" />
+						<f:attribute target="#{cadastroProdutoBean.produtoSelecionado}"
+							value="#{produto}" name="produto" />
+					</p:commandButton>
+
+
+				</p:column>
+
+				<p:column headerText="Barras:"
+					style="text-align:center; widht: 100px;">
+					<h:outputText value="#{produto.barras}" />
+				</p:column>
+
+				<p:column headerText="Descricao:"
+					style="text-align:center; widht: 100px;">
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+
+				<p:column headerText="Ncm:" style="text-align:center; widht: 100px;">
+					<h:outputText value="#{produto.ncm}" />
+				</p:column>
+
+
+			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

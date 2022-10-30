@@ -1,0 +1,78 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de CRT</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<h1>Pesquisa CRT</h1>
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px; height: 29px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" id="botaoPesquisar"
+						action="#{cadastroCrtBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/crt/CadastroCrt" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="1" id="painel"
+				style="width: 100%; margin-top: 20px;" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Pesquisar:  " for="pesquisa" />
+				<p:inputText id="pesquisa" size="50"
+					value="#{cadastroCrtBean.filtro}" />
+			</p:panelGrid>
+
+			<p:dataTable id="crtTable" value="#{cadastroCrtBean.filtrados}"
+				var="crt" style="margin-top: 20px"
+				emptyMessage="Não foram encontrados CRTs" rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="botton">
+				<p:column style="text-align:center; widht: 100px;">
+
+					<p:button outcome="/crt/CadastroCrt" icon="ui-icon-pencil"
+						title="Editar">
+						<f:param name="crt" value="#{crt.id}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{cadastroCrtBean.excluir}" update=":frmPesquisa">
+						<p:confirm header="Confirmação" message="Deseja excluir o CRT?"
+							icon="ui-icon-alert" />
+						<f:attribute target="#{cadastroCrtBean.crtSelecionado}"
+							value="#{crt}" name="crts" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column headerText="Crt:" style="text-align:center; widht: 100px;">
+					<h:outputText value="#{crt.crt}" />
+				</p:column>
+
+				<p:column headerText="Valor Pis:"
+					style="text-align:center; widht: 100px;">
+					<h:outputText value="#{crt.valorPis}" />
+				</p:column>
+
+				<p:column headerText="Valor Cofins:"
+					style="text-align:center; widht: 100px;">
+					<h:outputText value="#{crt.valorCofins}" />
+				</p:column>
+
+
+			</p:dataTable>
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

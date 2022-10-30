@@ -1,0 +1,130 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">#{cadastroNcmBean.editando  ? 'Edição de NCM' : 'Novo NCM'}</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="ncm" value="#{cadastroNcmBean.ncm}" />
+			<f:event listener="#{cadastroNcmBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+			<h1>Novo Ncm</h1>
+
+			<p:messages autoUpdate="true" closable="true" rendered="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/ncms/CadastroNcm" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroNcmBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/ncms/PesquisaNcm" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px;" columnClasses="rotulo, campo">
+				<p:outputLabel value="Código:" for="codigo" />
+				<p:inputText id="codigo" size="10" maxlength="10"
+					value="#{cadastroNcmBean.ncm.id}" disabled="true" />
+
+				<p:outputLabel value="Decrição" for="decricao" />
+				<p:inputText id="decricao" size="50" maxlength="50"
+					value="#{cadastroNcmBean.ncm.decricao}" required="true"
+					requiredMessage="Digite a decrição !" />
+
+				<p:outputLabel value="Ncm" for="ncm" />
+				<p:inputText id="ncm" size="50" maxlength="50"
+					value="#{cadastroNcmBean.ncm.ncm}" required="true"
+					requiredMessage="Digite o NCM!" />
+
+				<p:outputLabel value="Código da Natureza:" for="natureza" />
+				<p:inputText id="natureza" size="50" maxlength="20"
+					value="#{cadastroNcmBean.ncm.codigoNatureza}" />
+
+
+				<p:outputLabel value="Pis Entrada:" for="pisEntrada" />
+				<p:selectOneMenu id="pisEntrada" style="width:368px"
+					value="#{cadastroNcmBean.ncm.cstPisEntrada}">
+					<f:selectItem itemLabel="Selecione PIS Entrada" />
+					<f:selectItems value="#{cadastroNcmBean.pises}" var="pisEntrada"
+						itemValue="#{pis.id}" itemLabel="#{pis}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Pis Saida:" for="pisSaida" />
+				<p:selectOneMenu id="pisSaida" style="width:368px"
+					value="#{cadastroNcmBean.ncm.cstPisSaida}">
+					<f:selectItem itemLabel="Selecione PIS Saida" />
+					<f:selectItems value="#{cadastroNcmBean.pises}" var="pisSaida"
+						itemValue="#{pis.id}" itemLabel="#{pis}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="Cofins Entrada:" for="cofinsEntrada" />
+				<p:selectOneMenu id="cofinsEntrada" style="width:368px"
+					value="#{cadastroNcmBean.ncm.cstCofinsEntrada}">
+					<f:selectItem itemLabel="Selecione Cofins Entrada" />
+					<f:selectItems value="#{cadastroNcmBean.cofinses}"
+						var="CofinsEntrada" itemValue="#{cofins.id}" itemLabel="#{cofins}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Cofins Saida:" for="cofinsSaida" />
+				<p:selectOneMenu id="cofinsSaida" style="width:368px"
+					value="#{cadastroNcmBean.ncm.cstCofinsSaida}">
+					<f:selectItem itemLabel="Selecione Cofins Saida" />
+					<f:selectItems value="#{cadastroNcmBean.cofinses}"
+						var="CofinsSaida" itemValue="#{cofins.id}" itemLabel="#{cofins}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="UF" for="uf" />
+				<p:selectOneMenu id="uf" value="#{cadastroNcmBean.ncm.uf}"
+					style="width:368px">
+					<f:selectItem itemLabel="Selecione o Estado" />
+					<f:selectItems value="#{cadastroNcmBean.ufs}" var="ufs" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Crt:" for="crt" />
+				<p:selectOneMenu id="crt" value="#{cadastroNcmBean.ncm.crt}"
+					style="width:368px">
+					<f:selectItem itemLabel="Selecione o CRT" />
+					<f:selectItems value="#{cadastroNcmBean.crts}" var="crts"
+						itemValue="#{crts}" itemLabel="#{crts}" />
+				</p:selectOneMenu>
+
+
+				<p:outputLabel value="ICMS Normal:" for="icmsNormal" />
+				<p:inputText id="icmsNormal" size="50" maxlength="20"
+					value="#{cadastroNcmBean.ncm.aliguotaIcmsNormal}" required="true"
+					requiredMessage="Digite o ICMS Normal!" />
+
+				<p:outputLabel value="Redução ICMS:" for="icmsReducao" />
+				<p:inputText id="icmsReducao" size="50" maxlength="20"
+					value="#{cadastroNcmBean.ncm.reducaoIcms}" required="true"
+					requiredMessage="Digite o Redução do ICMS!" />
+
+
+				<p:outputLabel value="ICMS Efetivo:" for="icmsEfetivo" />
+				<p:inputText id="icmsEfetivo" size="50" maxlength="20"
+					value="#{cadastroNcmBean.ncm.aliquotaEfetiva}" required="true"
+					requiredMessage="Digite o ICMS Efetivo!" />
+
+
+				<p:outputLabel value="CST ICMS:" for="cstIcms" />
+				<p:inputText id="cstIcms" size="50" maxlength="20"
+					value="#{cadastroNcmBean.ncm.cstIcmsSaida}" required="true"
+					requiredMessage="Digite o CST!" />
+
+			</p:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

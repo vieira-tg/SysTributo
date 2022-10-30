@@ -1,0 +1,113 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="Detalhe Ncm" />
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="ncm" value="#{detalheNcmBean.ncm}" />
+
+		</f:metadata>
+
+		<h:form prependId="false" id="paginaCompleta">
+			<h1>Detalhe Ncm</h1>
+			<br></br>
+			<p:messages autoUpdate="true" closable="true" rendered="true" />
+
+			<br></br>
+			<p:fieldset legend="Dados NCM" toggleable="true" toggleSpeed="600">
+
+				<h:panelGrid columns="2" cellpadding="3">
+					<p:outputLabel for="ncm" value="NCM:   " />
+					<p:outputLabel id="ncm" value="#{detalheNcmBean.ncm.ncm}" />
+
+					<p:outputLabel for="decricao" value="Descrição:" />
+					<p:outputLabel id="decricao" value="#{detalheNcmBean.ncm.decricao}" />
+
+					<p:outputLabel for="natureza" value="Natureza:" />
+					<p:outputLabel id="natureza"
+						value="#{detalheNcmBean.ncm.codigoNatureza}" />
+
+
+					<p:outputLabel for="crt" value="CRT:" />
+					<p:outputLabel id="crt" value="#{detalheNcmBean.ncm.crt.crt}" />
+
+					<p:outputLabel for="uf" value="UF:" />
+					<p:outputLabel id="uf" value="#{detalheNcmBean.ncm.uf}" />
+
+
+				</h:panelGrid>
+			</p:fieldset>
+			<br></br>
+			<p:fieldset legend="Pis" toggleable="true" toggleSpeed="500">
+
+				<h:panelGrid columns="2" cellpadding="3">
+					<p:outputLabel for="pisEntrada" value="Pis Entrada:" />
+					<p:outputLabel id="pisEntrada"
+						value="#{detalheNcmBean.ncm.cstPisEntrada.cst} - #{detalheNcmBean.ncm.cstPisEntrada.descricao}" />
+
+					<p:outputLabel for="pisSaida" value="Pis Saida:" />
+					<p:outputLabel id="pisSaida"
+						value="#{detalheNcmBean.ncm.cstPisSaida.cst} - #{detalheNcmBean.ncm.cstPisSaida.descricao}" />
+
+					<p:outputLabel for="valorPis" value="Valor Pis:" />
+					<p:outputLabel id="valorPis"
+						value="#{detalheNcmBean.ncm.crt.valorPis}" />
+
+				</h:panelGrid>
+			</p:fieldset>
+			<br></br>
+			<p:fieldset legend="Cofins" toggleable="true" toggleSpeed="500">
+
+				<h:panelGrid columns="2" cellpadding="3">
+					<p:outputLabel for="cofinsEntrada" value="Cofins Entrada:" />
+					<p:outputLabel id="cofinsEntrada"
+						value="#{detalheNcmBean.ncm.cstCofinsEntrada.cst} - #{detalheNcmBean.ncm.cstCofinsEntrada.descricao}" />
+
+					<p:outputLabel for="cofinsSaida" value="Cofins Saida:" />
+					<p:outputLabel id="cofinsSaida"
+						value="#{detalheNcmBean.ncm.cstCofinsSaida.cst} - #{detalheNcmBean.ncm.cstCofinsSaida.descricao}" />
+
+					<p:outputLabel for="valorCofins" value="Valor Cofins:" />
+					<p:outputLabel id="valorCofins"
+						value="#{detalheNcmBean.ncm.crt.valorCofins}" />
+
+				</h:panelGrid>
+			</p:fieldset>
+			<br></br>
+			<p:fieldset legend="ICMS" toggleable="true" toggleSpeed="500">
+
+				<h:panelGrid columns="2" cellpadding="3">
+					<p:outputLabel for="icmsNormal" value="Alíquota ICMS Normal:" />
+					<p:outputLabel id="icmsNormal"
+						value="#{detalheNcmBean.ncm.aliguotaIcmsNormal}" />
+
+					<p:outputLabel for="icmsReducao" value="Redução Base de Calculo:" />
+					<p:outputLabel id="icmsReducao"
+						value="#{detalheNcmBean.ncm.reducaoIcms}" />
+
+					<p:outputLabel for="icmsEfetivo" value="Alíquota efetiva ICMS:" />
+					<p:outputLabel id="icmsEfetivo"
+						value="#{detalheNcmBean.ncm.aliquotaEfetiva}" />
+
+
+					<p:outputLabel for="icmsCst" value="CST ICMS:" />
+					<p:outputLabel id="icmsCst"
+						value="#{detalheNcmBean.ncm.aliquotaEfetiva}" />
+
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<br></br>
+			<br></br>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
